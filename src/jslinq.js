@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.0
+ * Version	: v1.0.1
  * Project	: https://github.com/maurobussini/jslinq
  */
 
@@ -30,7 +30,14 @@
         this.groupBy = groupBy;
         this.join = join;
         this.distinct = distinct;
+		this.orderBy = orderBy;
+		this.orderByDescending = orderByDescending;
+		this.selectMany = selectMany;
         this.singleOrDefault = singleOrDefault;
+		this.firstOrDefault = firstOrDefault;
+		this.lastOrDefault = lastOrDefault;
+		this.any = any;
+		this.all = all;
         this.toList = toList;
         this.count = count;
 
@@ -208,6 +215,97 @@
         return new jslinq(outData);
     }
     //#endregion
+	
+	//#region "orderBy"
+
+    //Order elements using provided expression
+    function orderBy(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+		
+		//Define sort action estracting values from objects
+		var sortAction = function(a, b){
+		
+			//Get value for "a" and "b" element
+			var aValue = expression(a);
+			var bValue = expression(b);
+		
+			//Check if one element is greater then the second one
+			if(aValue < bValue) return -1;
+			if(aValue > bValue) return 1;
+			return 0;
+		};
+
+        //Define output array
+        var outData = this.items.sort(sortAction);
+        
+        //Return for chaining
+        return new jslinq(outData);
+    }
+    //#endregion
+	
+	//#region "orderByDescending"
+
+    //Order elements using provided expression
+    function orderByDescending(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+			
+		//Use "orderBy" method
+		var ordered = jslinq(this.items)
+			.orderBy(expression)
+			.toList();
+		
+		//Reverse order of array
+		var outData = ordered.reverse();
+
+        //Return for chaining
+        return new jslinq(outData);
+    }
+    //#endregion
+	
+	//#region "selectMany"
+
+    //Select clause
+    function selectMany(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+        //Data for output
+        var outData = [];
+
+        //For each element on items
+        for (var i = 0; i < this.items.length; i++) {
+
+            //Invoke expression and obtain element
+            var result = expression(this.items[i]);
+			
+			//If element is undefined, just push
+			if (!result){
+			
+				//Push and continue
+				outData.push(result);
+				break;
+			}
+			
+			//Elements can be an array or a single element
+			for (var n = 0; n < result.length; n++){
+			
+				//Push current element to output
+				outData.push(result[n]);			
+			}
+        }
+
+        //Return for chaining
+        return new jslinq(outData);
+    }
+    //#endregion
 
     //#region "singleOrDefault"
 
@@ -232,6 +330,90 @@
 
         //If contains more than one element, throws
         throw new Error("Sequence contains " + outData.length + " matching elements");
+    }
+    //#endregion
+	
+	//#region "firstOrDefault"
+
+    //Select first element that matchs expression
+    function firstOrDefault(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+		//Use "where" clause
+        var outData = jslinq(this.items)
+            .where(expression)
+            .toList();
+
+        //If output list does not contains element, return null
+        if (outData.length == 0)
+            return null;
+			
+		//Return first element
+		return outData[0];
+    }
+    //#endregion
+	
+	//#region "lastOrDefault"
+
+    //Select last element that matchs expression
+    function lastOrDefault(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+		//Use "where" clause
+        var outData = jslinq(this.items)
+            .where(expression)
+            .toList();
+
+        //If output list does not contains element, return null
+        if (outData.length == 0)
+            return null;
+			
+		//Return last element
+		return outData[outData.length - 1];
+    }
+    //#endregion
+	
+	//#region "any"
+
+    //Returns true if at least one element matchs the expression
+    function any(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+		//Use "where" clause
+        var outData = jslinq(this.items)
+            .where(expression)
+            .toList();
+			
+		//Returns true if at least one elements was found
+		return outData.length > 0;
+    }
+    //#endregion
+	
+	//#region "all"
+
+    //Returns true if all elements match the expression
+    function all(expression) {
+
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+		//Use "where" clause
+        var outData = jslinq(this.items)
+            .where(expression)
+            .toList();
+			
+		//Returns true if outpul length is equals to input
+		return outData.length == this.items.length;
     }
     //#endregion
 

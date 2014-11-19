@@ -1,4 +1,4 @@
-jslinq
+jslinq v1.0.1
 ======
 
 Another LINQ provider for Javascript
@@ -9,11 +9,11 @@ Another LINQ provider for Javascript
 
 ```javascript
 var data = [
-	{ id: 1, name: "one", category: 'fruits' },
-	{ id: 2, name: "two", category: 'vegetables' },
-	{ id: 3, name: "three", category: 'vegetables' },
-	{ id: 4, name: "four", category: 'fruits' },
-	{ id: 5, name: "five", category: 'fruits' }
+	{ id: 1, name: "one", category: 'fruits', countries: ["Italy", "Austria"] },
+	{ id: 2, name: "two", category: 'vegetables', countries: ["Italy", "Germany"] },
+	{ id: 3, name: "three", category: 'vegetables', countries: ["Germany"] },
+	{ id: 4, name: "four", category: 'fruits', countries: ["Japan"] },
+	{ id: 5, name: "five", category: 'fruits', countries: ["Japan", "Italy"] }
 ];
 ```
 
@@ -39,11 +39,11 @@ var result = queryObj
 	
 /*
 result => [
-	{ id: 1, name: "one", category: 'fruits' },
-	{ id: 2, name: "two", category: 'vegetables' },
-	{ id: 3, name: "three", category: 'vegetables' },
-	{ id: 4, name: "four", category: 'fruits' },
-	{ id: 5, name: "five", category: 'fruits' }
+	{ id: 1, name: "one", ... },
+	{ id: 2, name: "two", ... },
+	{ id: 3, name: "three", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }
 ];
 */
 ```
@@ -56,7 +56,7 @@ var result = queryObj
 	});
 
 /*
-result => { id: 1, name: "one", category: 'fruits' };
+result => { id: 1, name: "one", ... };
 */
 ```
 
@@ -82,7 +82,7 @@ var result = queryObj
 	.toList();
 
 /*
-result => [{ id: 2, name: "two", category: 'vegetables' }];
+result => [{ id: 2, name: "two", ... }];
 */
 ```
 
@@ -102,7 +102,7 @@ result => [
 */
 ```
 
-#### Marge two arrays with *join*
+#### Merge two arrays with *join*
 ```javascript
 var otherData = [
 	{ id: 7, name: "seven", category: 'vegetables' }, 
@@ -114,13 +114,13 @@ var result = queryObj
 	.toList();
 /*
 result => [
-	{ id: 1, name: "one", category: 'fruits' },
-	{ id: 2, name: "two", category: 'vegetables' },
-	{ id: 3, name: "three", category: 'vegetables' },
-	{ id: 4, name: "four", category: 'fruits' },
-	{ id: 5, name: "five", category: 'fruits' }, 
-	{ id: 7, name: "seven", category: 'vegetables' }, 
-	{ id: 8, name: "eight", category: 'fruit' }
+	{ id: 1, name: "one", ... },
+	{ id: 2, name: "two", ... },
+	{ id: 3, name: "three", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }, 
+	{ id: 7, name: "seven", ... }, 
+	{ id: 8, name: "eight", ... }
 ];
 */
 ```
@@ -134,6 +134,100 @@ var result = jslinq(extraData)
 	.toList();
 /*
 result => ["A", "B", "C", "D"];
+*/
+```
+
+#### Sort ascending using *orderBy*
+```javascript
+var result = queryObj
+	.orderBy(function(el){
+		return el.name;
+	})
+	.toList();
+/*
+result => [
+	{ id: 5, name: "five", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 1, name: "one", ... },
+	{ id: 3, name: "three", ... },
+	{ id: 2, name: "two", ... }
+];
+*/
+```
+
+#### Sort descending using *orderByDescending*
+```javascript
+var result = queryObj
+	.orderByDescending(function(el){
+		return el.name;
+	})
+	.toList();
+/*
+result => [
+	{ id: 2, name: "two", ... },
+	{ id: 3, name: "three", ... },
+	{ id: 1, name: "one", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }
+];
+*/
+```
+
+#### Select multiple elements with *selectMany*
+```javascript
+var result = queryObj
+	.selectMany(function(el){
+		return el.countries;
+	})
+	.toList();
+/*
+result => [
+	"Italy", "Austria", "Italy", "Germany", 
+	"Germany", "Japan", "Japan", "Italy"] }
+];
+```
+
+#### Get the first matching element with *firstOrDefault*
+```javascript
+var result = queryObj
+	.firstOrDefault(function(el){
+		return el.category == "vegetables";
+	});
+/*
+result => { id: 2, name: "two", ... };
+*/
+```
+
+#### Get the last matching element with *lastOrDefault*
+```javascript
+var result = queryObj
+	.lastOrDefault(function(el){
+		return el.category == "vegetables";
+	});
+/*
+result => { id: 3, name: "three", ... };
+*/
+```
+
+#### Check if at least one elements matchs expression with *any*
+```javascript
+var result = queryObj
+	.any(function(el){
+		return el.name == "two";
+	});
+/*
+result => true;
+*/
+```
+
+#### Check if all elements match expression with *all*
+```javascript
+var result = queryObj
+	.all(function(el){
+		return el.countries.length > 0;
+	});
+/*
+result => true;
 */
 ```
 
