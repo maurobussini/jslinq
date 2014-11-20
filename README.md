@@ -1,4 +1,4 @@
-jslinq v1.0.1
+jslinq v1.0.2
 ======
 
 Another LINQ provider for Javascript
@@ -228,6 +228,30 @@ var result = queryObj
 	});
 /*
 result => true;
+*/
+```
+
+#### Skip the number of specified elements with *skip*
+```javascript
+var result = queryObj
+	.skip(3);
+/*
+result => [
+	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }
+];
+*/
+```
+
+#### Take the number of specified elements with *take*
+```javascript
+var result = queryObj
+	.skip(2);
+/*
+result => [
+	{ id: 1, name: "one", ... },
+	{ id: 1, name: "two", ... }
+];
 */
 ```
 

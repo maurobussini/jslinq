@@ -91,13 +91,29 @@ describe("jslinq", function () {
 	//filters
 	describe("filters", function () {
 	
-		it("Should return filter with 'where'", function () {
+		it("Should returns one element with 'where'", function () {
 			var result = jslinq(testData)
 				.where(function(x) { return x.id == 5; })
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(1);
 		});	
+		
+		it("Should returns four elements with 'skip'", function () {
+			var result = jslinq(testData)
+				.skip(1)
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(4);
+		});
+		
+		it("Should returns 3 elements with 'take'", function () {
+			var result = jslinq(testData)
+				.take(3)
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(3);
+		});
 	});
 	
 	//groupings

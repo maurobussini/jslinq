@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.1
+ * Version	: v1.0.2
  * Project	: https://github.com/maurobussini/jslinq
  */
 
@@ -40,6 +40,8 @@
 		this.all = all;
         this.toList = toList;
         this.count = count;
+		this.skip = skip;
+		this.take = take;
 
         //Return for chaining
         return this;
@@ -312,14 +314,23 @@
     //Select elements that match expression
     function singleOrDefault(expression) {
 
-        //Check arguments
-        if (!expression)
-            throw new Error("Expression is invalid");
-
-        var outData = jslinq(this.items)
-            .where(expression)
-            .toList();
-
+		//Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply where condition
+			outData = jslinq(this.items)
+				.where(expression)
+				.toList();
+		}
+	
         //If output list does not contains element, return null
         if (outData.length == 0)
             return null;
@@ -338,14 +349,22 @@
     //Select first element that matchs expression
     function firstOrDefault(expression) {
 
-        //Check arguments
-        if (!expression)
-            throw new Error("Expression is invalid");
-
-		//Use "where" clause
-        var outData = jslinq(this.items)
-            .where(expression)
-            .toList();
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply where condition
+			outData = jslinq(this.items)
+				.where(expression)
+				.toList();
+		}
 
         //If output list does not contains element, return null
         if (outData.length == 0)
@@ -361,14 +380,22 @@
     //Select last element that matchs expression
     function lastOrDefault(expression) {
 
-        //Check arguments
-        if (!expression)
-            throw new Error("Expression is invalid");
-
-		//Use "where" clause
-        var outData = jslinq(this.items)
-            .where(expression)
-            .toList();
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply where condition
+			outData = jslinq(this.items)
+				.where(expression)
+				.toList();
+		}
 
         //If output list does not contains element, return null
         if (outData.length == 0)
@@ -384,14 +411,22 @@
     //Returns true if at least one element matchs the expression
     function any(expression) {
 
-        //Check arguments
-        if (!expression)
-            throw new Error("Expression is invalid");
-
-		//Use "where" clause
-        var outData = jslinq(this.items)
-            .where(expression)
-            .toList();
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply where condition
+			outData = jslinq(this.items)
+				.where(expression)
+				.toList();
+		}
 			
 		//Returns true if at least one elements was found
 		return outData.length > 0;
@@ -403,14 +438,22 @@
     //Returns true if all elements match the expression
     function all(expression) {
 
-        //Check arguments
-        if (!expression)
-            throw new Error("Expression is invalid");
-
-		//Use "where" clause
-        var outData = jslinq(this.items)
-            .where(expression)
-            .toList();
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply where condition
+			outData = jslinq(this.items)
+				.where(expression)
+				.toList();
+		}
 			
 		//Returns true if outpul length is equals to input
 		return outData.length == this.items.length;
@@ -434,6 +477,40 @@
 
         //Returns items on jslinq
         return this.items.length;
+    }
+    //#endregion
+	
+	//#region "skip"
+
+    //Skip the number of specified elements
+    function skip(value) {
+
+        //Check arguments
+        if (value < 0)
+            throw new Error("Value must be greater or equals zero");
+
+		//Slice source array
+		var outData = this.items.slice(value);
+			
+		//Return for chaining
+        return new jslinq(outData);
+    }
+    //#endregion
+	
+	//#region "take"
+
+    //Take the number of specified elements
+    function take(value) {
+
+        //Check arguments
+        if (value < 0)
+            throw new Error("Value must be greater or equals zero");
+
+		//Slice source array
+		var outData = this.items.slice(0, value);
+			
+		//Return for chaining
+        return new jslinq(outData);
     }
     //#endregion
    
