@@ -1,4 +1,4 @@
-jslinq v1.0.2
+jslinq v1.0.3
 ======
 
 Another LINQ provider for Javascript
@@ -250,8 +250,30 @@ var result = queryObj
 /*
 result => [
 	{ id: 1, name: "one", ... },
-	{ id: 1, name: "two", ... }
+	{ id: 2, name: "two", ... }
 ];
+*/
+```
+
+#### Get the maximum element using specific expression with *max*
+```javascript
+var result = queryObj
+	.max(function(el){
+		return el.id;
+	});
+/*
+result => 5;
+*/
+```
+
+#### Get the minimum element using specific expression with *min*
+```javascript
+var result = queryObj
+	.min(function(el){
+		return el.id;
+	});
+/*
+result => 1;
 */
 ```
 

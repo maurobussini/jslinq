@@ -66,6 +66,20 @@ describe("jslinq", function () {
 				.any(function(x) { return x.countries.length > 0; });	
 			expect(result).toEqual(true);
 		});
+		
+		it("Should have 5 with 'max'", function () {
+			var result = jslinq(testData)
+				.max(function(x) { return x.id; });
+			expect(result).toBeDefined();
+			expect(result).toEqual(5);
+		});
+		
+		it("Should have 1 with 'min'", function () {
+			var result = jslinq(testData)
+				.min(function(x) { return x.id; });
+			expect(result).toBeDefined();
+			expect(result).toEqual(1);
+		});
 	});
 	
 	//projections
@@ -134,7 +148,7 @@ describe("jslinq", function () {
 				.toList();
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(4);
-		});
+		});				
 	});
 	
 	//sortings

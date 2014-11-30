@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.2
+ * Version	: v1.0.3
  * Project	: https://github.com/maurobussini/jslinq
  */
 
@@ -42,6 +42,8 @@
         this.count = count;
 		this.skip = skip;
 		this.take = take;
+		this.max = max;
+		this.min = min;
 
         //Return for chaining
         return this;
@@ -511,6 +513,84 @@
 			
 		//Return for chaining
         return new jslinq(outData);
+    }
+    //#endregion
+	
+	//#region "max"
+
+    //Get the max element matching criteria the number of specified elements
+    function max(expression) {
+
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply select condition
+			outData = jslinq(this.items)
+				.select(expression)
+				.toList();
+		}
+		
+		//If array has no elements, returns null
+		if (outData.length == 0){
+			return null;
+		}
+		else{
+		
+			//Apply orderby
+			outData = jslinq(outData)
+				.orderBy(function(x) { return x; })
+				.toList();
+				
+			//Returns last element
+			return outData[outData.length - 1];
+		}
+    }
+    //#endregion
+	
+	//#region "min"
+
+    //Get the min element matching criteria the number of specified elements
+    function min(expression) {
+
+        //Define output
+		var outData;
+		
+		//If there's no expression
+		if (!expression){
+		
+			//Just assign current items
+			outData = this.items;
+		}
+		else{
+		
+			//Otherwise apply select condition
+			outData = jslinq(this.items)
+				.select(expression)
+				.toList();
+		}
+		
+		//If array has no elements, returns null
+		if (outData.length == 0){
+			return null;
+		}
+		else{
+		
+			//Apply orderby
+			outData = jslinq(outData)
+				.orderBy(function(x) { return x; })
+				.toList();
+				
+			//Returns first element
+			return outData[0];
+		}
     }
     //#endregion
    
