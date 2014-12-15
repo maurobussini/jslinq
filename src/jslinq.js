@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.3
+ * Version	: v1.0.4
  * Project	: https://github.com/maurobussini/jslinq
  */
 
