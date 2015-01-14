@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿﻿﻿/*
  * jslinq
  * Copyright 2014 Mauro Bussini.
  * All Rights Reserved.
