@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Another LINQ provider for Javascript",
   "main": "build/jslinq.min.js",
   "moduleType": [
@@ -16,16 +16,10 @@
   "license": "MIT",
   "homepage": "https://github.com/maurobussini/jslinq",
   "ignore": [
-    "**/.*",
     "node_modules",
-    "bower_components",
 	"src",
-    "test",
     "tests", 
-	".bowerrc",
 	".gitignore",
-	".jshintignore",
-	".jshintrc",
 	"bower.json",
 	"Gruntfile.js",
 	"LICENSE",

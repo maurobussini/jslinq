@@ -277,6 +277,25 @@ result => 1;
 */
 ```
 
+#### Get elements contained on two array with *intersect*
+```javascript
+var otherData = [
+	{ id: 2, name: "two", category: 'vegetables' }, 
+	{ id: 8, name: "eight", category: 'fruit' }
+];
+
+var result = queryObj
+	.intersect(otherData, function(el){
+		return el.id;
+	})
+	.toList();
+/*
+result => [
+	{ id: 2, name: "two", ... }
+];
+*/
+```
+
 #### You can also chain multiple methods
 ```javascript
 

@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.4
+ * Version	: v1.0.5
  * Project	: https://github.com/maurobussini/jslinq
  */
 
@@ -29,6 +29,7 @@
         this.where = where;
         this.groupBy = groupBy;
         this.join = join;
+		this.intersect = intersect;
         this.distinct = distinct;
 		this.orderBy = orderBy;
 		this.orderByDescending = orderByDescending;
@@ -591,6 +592,62 @@
 			//Returns first element
 			return outData[0];
 		}
+    }
+    //#endregion
+	
+	//#region "intersect"
+
+    //Get only elements where the same instance is included 
+	//on data and in the provided array
+    function intersect(otherData, compareExpression) {
+	
+		//If other data is invalid, return empty array
+        if (!otherData)
+            return new jslinq([]);
+
+        //Data for output
+        var outData = [];
+
+        //Check every element of "items"
+        for (var n = 0; n < this.items.length; n++) {
+		
+			//Current element on items
+			var currentOnItems = this.items[n];
+		
+			//Check every element on "otherData"
+			for (var i = 0; i < otherData.length; i++) {
+			
+				//Current element on "otherData"
+				var currentOnOtherData = otherData[i];
+				
+				//Fails by default matching of elements
+				var doesMatch = false;
+			
+				//If compare expression was not set
+				if (!compareExpression){
+				
+					//Compare on same instance
+					doesMatch  = currentOnItems == currentOnOtherData;
+				}
+				else{
+				
+					//Calculate comparison value for each element
+					var comparisonForItems = compareExpression(currentOnItems);
+					var comparisonForOtherData = compareExpression(currentOnOtherData);
+				
+					//Compare result of compare expressions
+					doesMatch = comparisonForItems == comparisonForOtherData;
+				}
+			
+				//If there's a match, add element of "items" on output
+				if (doesMatch){
+					outData.push(currentOnItems);
+				}
+			}
+        }
+
+        //Return for chaining
+        return new jslinq(outData);        
     }
     //#endregion
    

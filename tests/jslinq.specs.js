@@ -186,6 +186,36 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(7);
-		});			
+		});	
+		
+		//Added in v1.0.5
+		it("Should obtain only 1 elements with 'intersect' (same instance)", function () {
+			var someOtherData = jslinq(testData)
+				.where(function(el){
+					return el.id == 2
+				})
+				.toList();
+			var result = jslinq(testData)
+				.intersect(someOtherData)
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(1);
+		});
+
+		//Added in v1.0.5
+		it("Should obtain only 2 elements with 'intersect' (with compare expression)", function () {
+			var someOtherData = [
+				{ id: 2, name: "two", category: 'vegetables', countries: ["Italy", "Germany"] },
+				{ id: 4, name: "four", category: 'fruits', countries: ["Japan"] },
+				{ id: 7, name: "seven", category: 'fruit', countries: null }
+			];
+			var result = jslinq(testData)
+				.intersect(someOtherData, function(el){
+					return el.id;
+				})
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(2);
+		});				
 	});
 });
