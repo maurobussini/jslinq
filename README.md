@@ -1,4 +1,4 @@
-jslinq v1.0.5
+jslinq v1.0.6
 ======
 
 Another LINQ provider for Javascript
@@ -292,6 +292,27 @@ var result = queryObj
 /*
 result => [
 	{ id: 2, name: "two", ... }
+];
+*/
+```
+
+#### Remove one element using *remove*
+```javascript
+
+var elementToRemove = queryObj
+	.singleOrDefault(function(el){
+		return el.id == 2;
+	});
+
+queryObj
+	.remove(elementToRemove)
+	.toList();
+/*
+result => [
+	{ id: 1, name: "one", ... },
+	{ id: 3, name: "three", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }
 ];
 */
 ```

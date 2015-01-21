@@ -216,6 +216,20 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(2);
-		});				
+		});	
+
+		//Added in v1.0.6
+		it("Should obtain only 4 elements after 'remove'", function () {			
+			var singleToRemove = jslinq(testData)
+				.singleOrDefault(function(el){
+					return el.id == 2;
+				});
+		
+			var result = jslinq(testData)
+				.remove(singleToRemove)
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(4);
+		});			
 	});
 });

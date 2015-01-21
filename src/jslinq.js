@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.5
+ * Version	: v1.0.6
  * Project	: https://github.com/maurobussini/jslinq
  */
 
@@ -45,6 +45,7 @@
 		this.take = take;
 		this.max = max;
 		this.min = min;
+		this.remove = remove;
 
         //Return for chaining
         return this;
@@ -648,6 +649,32 @@
 
         //Return for chaining
         return new jslinq(outData);        
+    }
+    //#endregion
+	
+	//#region "remove"
+
+    //Remove the provided elements from data
+    function remove(elementToRemove) {
+	
+		//If element to remove is invalid, just return the same data
+        if (!elementToRemove)
+            return new jslinq(this.items);
+        
+        //Check every element of "items"
+        for (var n = 0; n < this.items.length; n++) {
+		
+			//If current element is not the one to remove, continue
+			if (this.items[n] != elementToRemove)
+				continue;
+			
+			//Calculate position of element to remove
+			var elementPosition = this.items.indexOf(elementToRemove);
+			this.items.splice(elementPosition, 1);
+        }
+
+        //Return for chaining
+        return new jslinq(this.items);        
     }
     //#endregion
    
