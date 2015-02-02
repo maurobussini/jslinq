@@ -7,6 +7,7 @@
             options: {
                 banner: 
 					'//! <%= pkg.name %>\n' + 
+					'//! <%= pkg.description %>\n' +
 					'//! version : <%= pkg.version %>\n' + 
 					'//! authors : <%= pkg.author %>\n' + 
 					'//! license : <%= pkg.license %>\n' + 

@@ -1,9 +1,9 @@
 {
   "name": "jslinq",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Another LINQ provider for Javascript",
-  "main": "jslinq.js",
-  "author": "mauro.bussini",
+  "main": "src/jslinq.js",
+  "author": "maurobussini",
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",

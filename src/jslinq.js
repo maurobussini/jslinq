@@ -6,13 +6,28 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.6
+ * Version	: v1.0.7
  * Project	: https://github.com/maurobussini/jslinq
  */
+ 
+;(function (root, factory) {
 
-;(function() {
-    
-    //Constructor function
+	//UMD - Universal Module Definition
+	if (typeof define === 'function' && define.amd) {
+        //AMD: register as an anonymous module without dependencies
+        define([], factory);
+    } else if (typeof exports === 'object') {
+        //Node: does not work with strict CommonJS, but only CommonJS-like 
+		//environments that support module.exports, like Node.
+        module.exports = factory();
+    } else {
+        //Browser: globals (root is window)
+        root.jslinq = factory();
+    }
+	
+}(this, function () {
+
+	//Constructor function
     function jslinq(array) {
 
         //Check arguments
@@ -677,16 +692,8 @@
         return new jslinq(this.items);        
     }
     //#endregion
-   
-    //Check if we are in Node.js
-    if (typeof module !== 'undefined' && module.exports) {
-
-        //Apply as export
-        module.exports = jslinq;
-    }
-    else {
-
-        //Otherwise expose on window object
-        window['jslinq'] = jslinq;
-    }
-}());
+  
+	//Exports functions
+	return jslinq;
+  
+}));
