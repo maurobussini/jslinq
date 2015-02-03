@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.7
+ * Version	: v1.0.8
  * Project	: https://github.com/maurobussini/jslinq
  */
  
@@ -23,8 +23,7 @@
     } else {
         //Browser: globals (root is window)
         root.jslinq = factory();
-    }
-	
+    }	
 }(this, function () {
 
 	//Constructor function
@@ -61,6 +60,7 @@
 		this.max = max;
 		this.min = min;
 		this.remove = remove;
+		this.subtract = subtract;
 
         //Return for chaining
         return this;
@@ -258,9 +258,15 @@
 			if(aValue > bValue) return 1;
 			return 0;
 		};
+		
+		//Copy array in order to avoid modifications on original
+		var outData = [];
+		for(var i = 0; i < this.items.length; i++){
+			outData.push(this.items[i]);
+		}
 
         //Define output array
-        var outData = this.items.sort(sortAction);
+        var outData = outData.sort(sortAction);
         
         //Return for chaining
         return new jslinq(outData);
@@ -675,21 +681,91 @@
 		//If element to remove is invalid, just return the same data
         if (!elementToRemove)
             return new jslinq(this.items);
+			
+		//Define output array
+		var outData = [];
         
         //Check every element of "items"
         for (var n = 0; n < this.items.length; n++) {
 		
-			//If current element is not the one to remove, continue
-			if (this.items[n] != elementToRemove)
+			//If current element the one to remove, continue
+			if (this.items[n] == elementToRemove)
 				continue;
-			
-			//Calculate position of element to remove
-			var elementPosition = this.items.indexOf(elementToRemove);
-			this.items.splice(elementPosition, 1);
+				
+			//If no match, push element to out
+			outData.push(this.items[n]);
         }
 
         //Return for chaining
-        return new jslinq(this.items);        
+        return new jslinq(outData);        
+    }
+    //#endregion
+	
+	//#region "intersect"
+
+    //Get only elements NOT contained on provided "otherData"
+	//using same instance or compare expression
+    function subtract(otherData, compareExpression) {
+	
+		//If other data is invalid, return empty array
+        if (!otherData)
+            return new jslinq([]);
+			
+        //Data for output
+        var outData = [];
+
+        //Check every element of "items"
+        for (var n = 0; n < this.items.length; n++) {
+		
+			//Current element on items
+			var currentOnItems = this.items[n];
+			
+			//Set flag of "found match" as false
+			var aMatchWasFound = false;
+		
+			//Check every element on "otherData"
+			for (var i = 0; i < otherData.length; i++) {
+			
+				//If a match was already found, skip
+				if (aMatchWasFound)
+					continue;
+			
+				//Current element on "otherData"
+				var currentOnOtherData = otherData[i];
+				
+				//Fails by default matching of elements
+				var doesMatch = false;
+			
+				//If compare expression was not set
+				if (!compareExpression){
+				
+					//Compare on same instance
+					doesMatch  = currentOnItems == currentOnOtherData;
+				}
+				else{
+				
+					//Calculate comparison value for each element
+					var comparisonForItems = compareExpression(currentOnItems);
+					var comparisonForOtherData = compareExpression(currentOnOtherData);
+				
+					//Compare result of compare expressions
+					doesMatch = comparisonForItems == comparisonForOtherData;
+				}
+				
+				//If there's a match, set the flag
+				if (doesMatch){
+					aMatchWasFound = true;
+				}				
+			}
+			
+			//If no match was found, append element to output
+			if (!aMatchWasFound){
+				outData.push(currentOnItems);
+			}
+        }
+
+        //Return for chaining
+        return new jslinq(outData);        
     }
     //#endregion
   

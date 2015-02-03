@@ -1,4 +1,4 @@
-jslinq v1.0.7
+jslinq v1.0.8
 ======
 
 Another LINQ provider for Javascript
@@ -304,7 +304,7 @@ var elementToRemove = queryObj
 		return el.id == 2;
 	});
 
-queryObj
+var result = queryObj
 	.remove(elementToRemove)
 	.toList();
 /*
@@ -312,6 +312,29 @@ result => [
 	{ id: 1, name: "one", ... },
 	{ id: 3, name: "three", ... },
 	{ id: 4, name: "four", ... },
+	{ id: 5, name: "five", ... }
+];
+*/
+```
+
+#### Remove, from source array, specified elements with *subtract*
+```javascript
+
+var elementsToSubtract = [
+	{ id: 2, name: "two", ... },
+	{ id: 4, name: "four", ... },
+	{ id: 7, name: "seven", ... }
+];
+			
+var result = queryObj
+	.subtract(elementsToSubtract, function(el){
+		return el.id;
+	})
+	.toList();
+/*
+result => [
+	{ id: 1, name: "one", ... },
+	{ id: 3, name: "three", ... },
 	{ id: 5, name: "five", ... }
 ];
 */

@@ -9,6 +9,15 @@ describe("jslinq", function () {
 		{ id: 5, name: "five", category: 'fruits', countries: ["Japan", "Italy"] }
 	];
 	
+	//BeforeEach check if "testData" where changed during tests
+	beforeEach(function(){		
+		if (testData[0].id != 1) throw new Error("Test data where changed");
+		if (testData[1].id != 2) throw new Error("Test data where changed");
+		if (testData[2].id != 3) throw new Error("Test data where changed");
+		if (testData[3].id != 4) throw new Error("Test data where changed");
+		if (testData[4].id != 5) throw new Error("Test data where changed");
+	});
+	
 	//initializations
 	describe("initializations", function () {
 		
@@ -230,6 +239,37 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(4);
+		});
+
+		//Added in v1.0.8
+		it("Should obtain only 4 elements after 'subtract' (same instance)", function () {			
+			var someOtherData = jslinq(testData)
+				.where(function(el){
+					return el.id == 2
+				})
+				.toList();
+		
+			var result = jslinq(testData)
+				.subtract(someOtherData)
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(4);
+		});	
+
+		//Added in v1.0.8
+		it("Should obtain only 2 elements with 'subtract' (with compare expression)", function () {
+			var someOtherData = [
+				{ id: 2, name: "two", category: 'vegetables', countries: ["Italy", "Germany"] },
+				{ id: 4, name: "four", category: 'fruits', countries: ["Japan"] },
+				{ id: 7, name: "seven", category: 'fruit', countries: null }
+			];
+			var result = jslinq(testData)
+				.subtract(someOtherData, function(el){
+					return el.id;
+				})
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(3);
 		});			
 	});
 });
