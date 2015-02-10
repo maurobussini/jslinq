@@ -149,6 +149,14 @@ describe("jslinq", function () {
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(2);
 		});
+		
+		it("Should return 2 groups with 'groupBy' (with object as key)", function () {
+			var result = jslinq(testData)
+				.groupBy(function(x) { return { "someProperty": x.category }; })
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(2);
+		});
 	
 		it("Should have 4 elements with 'distinct'", function () {
 			var extraData = ["A", "B", "C", "B", "A", "D"];
@@ -157,7 +165,16 @@ describe("jslinq", function () {
 				.toList();
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(4);
-		});				
+		});
+		
+		it("Should have 4 elements with 'distinct' (with object comparison)", function () {
+			var extraData = [{ "key": "A" }, { "key": "B" }, { "key": "C" }, { "key": "B" }, { "key": "A" }, { "key": "D" }];
+			var result = jslinq(extraData)
+				.distinct()
+				.toList();
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(4);
+		});
 	});
 	
 	//sortings
@@ -270,6 +287,6 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(3);
-		});			
+		});		
 	});
 });

@@ -6,7 +6,7 @@
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
  *
  * Author 	: Mauro Bussini
- * Version	: v1.0.8
+ * Version	: v1.0.9
  * Project	: https://github.com/maurobussini/jslinq
  */
  
@@ -64,7 +64,53 @@
 
         //Return for chaining
         return this;
-    }    
+    }
+	
+	//Verify if first and second 
+	//element are equals in values
+	function equals(first, second){
+	
+		//Arguments validation
+		if (!first) throw new Error("Argument 'first' is invalid.");
+		if (!second) throw new Error("Argument 'second' is invalid.");
+		
+		//If are the same instance, true
+		if (first === second)
+			return true;
+			
+		//If values are equals, return true
+		if (first == second)
+			return true;
+			
+		//If different type, false
+		if (typeof first != typeof second)
+			return false;
+			
+		//If are not objects, check value
+		if (typeof first != "object")
+			return first == second;
+			
+		//For each property on first
+		for (var current in first){
+		
+			//Get property value from each element
+			var firstValue = first[current];
+			var secondValue = second[current];
+			
+			//If current is object, invoke "Equals" on each 
+			//member of the object; otherwise just check values
+			var isEqual = (typeof firstValue === 'object') 
+				? equals(firstValue, secondValue)
+				: firstValue == secondValue;
+			
+			//If not equals, exit
+			if (!isEqual)
+				return false;
+		}
+		
+		//Confirm
+		return true;	
+	}
    
     //#region "where"
 
@@ -144,9 +190,9 @@
 
             //For each existing element on maps
             for (var n = 0; n < maps.length; n++) {
-
+			
                 //If we have element with the same key
-                if (maps[n].key == groupKey) {
+				if (equals(maps[n].key, groupKey)){
 
                     //Set on external variable and break
                     existingMap = maps[n];
@@ -160,7 +206,8 @@
                 //Create with base values
                 existingMap = {
                     key: groupKey,
-                    count: 0
+                    count: 0, 
+					elements: []
                 };
 
                 //Add element to map array
@@ -169,6 +216,9 @@
 
             //Increment the counter
             existingMap.count++;
+			
+			//Push current element to "elements" property
+			existingMap.elements.push(this.items[i]);
         }
 
         //Return for chaining
@@ -221,7 +271,7 @@
             for (var n = 0; n < outData.length; n++) {
 
                 //If current element on "i" matches the one on "n"
-                if (outData[n] == this.items[i]) {
+				if (equals(outData[n], this.items[i])){
                     wasFound = true;
                     break;
                 }
@@ -513,9 +563,15 @@
         //Check arguments
         if (value < 0)
             throw new Error("Value must be greater or equals zero");
+			
+		//Copy array in order to avoid modifications on original
+		var outData = [];
+		for(var i = 0; i < this.items.length; i++){
+			outData.push(this.items[i]);
+		}
 
 		//Slice source array
-		var outData = this.items.slice(value);
+		var outData = outData.slice(value);
 			
 		//Return for chaining
         return new jslinq(outData);
@@ -530,9 +586,15 @@
         //Check arguments
         if (value < 0)
             throw new Error("Value must be greater or equals zero");
+			
+		//Copy array in order to avoid modifications on original
+		var outData = [];
+		for(var i = 0; i < this.items.length; i++){
+			outData.push(this.items[i]);
+		}
 
 		//Slice source array
-		var outData = this.items.slice(0, value);
+		var outData = outData.slice(0, value);
 			
 		//Return for chaining
         return new jslinq(outData);
@@ -649,7 +711,8 @@
 				if (!compareExpression){
 				
 					//Compare on same instance
-					doesMatch  = currentOnItems == currentOnOtherData;
+					//doesMatch = currentOnItems == currentOnOtherData;
+					doesMatch = equals(currentOnItems, currentOnOtherData);
 				}
 				else{
 				
@@ -658,7 +721,8 @@
 					var comparisonForOtherData = compareExpression(currentOnOtherData);
 				
 					//Compare result of compare expressions
-					doesMatch = comparisonForItems == comparisonForOtherData;
+					//doesMatch = comparisonForItems == comparisonForOtherData;
+					doesMatch = equals(comparisonForItems, comparisonForOtherData);
 				}
 			
 				//If there's a match, add element of "items" on output
@@ -689,7 +753,8 @@
         for (var n = 0; n < this.items.length; n++) {
 		
 			//If current element the one to remove, continue
-			if (this.items[n] == elementToRemove)
+			//if (this.items[n] == elementToRemove)
+			if (equals(this.items[n], elementToRemove))
 				continue;
 				
 			//If no match, push element to out
@@ -740,7 +805,8 @@
 				if (!compareExpression){
 				
 					//Compare on same instance
-					doesMatch  = currentOnItems == currentOnOtherData;
+					//doesMatch = currentOnItems == currentOnOtherData;
+					doesMatch = equals(currentOnItems, currentOnOtherData);					
 				}
 				else{
 				
@@ -749,7 +815,8 @@
 					var comparisonForOtherData = compareExpression(currentOnOtherData);
 				
 					//Compare result of compare expressions
-					doesMatch = comparisonForItems == comparisonForOtherData;
+					//doesMatch = comparisonForItems == comparisonForOtherData;
+					doesMatch = equals(comparisonForItems, comparisonForOtherData);
 				}
 				
 				//If there's a match, set the flag

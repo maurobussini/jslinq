@@ -96,8 +96,8 @@ var result = queryObj
 
 /*
 result => [
-	{ key: 'vegetables', count: 2 }, 
-	{ key: 'fruits', count: 3 }, 
+	{ key: 'vegetables', count: 2, elements: [...] }, 
+	{ key: 'fruits', count: 3, elements: [...] }, 
 ];
 */
 ```
