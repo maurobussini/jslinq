@@ -9,10 +9,10 @@
  * Version	: v1.0.9
  * Project	: https://github.com/maurobussini/jslinq
  */
- 
-;(function (root, factory) {
 
-	//UMD - Universal Module Definition
+(function (root, factory) {
+
+    //UMD - Universal Module Definition
 	if (typeof define === 'function' && define.amd) {
         //AMD: register as an anonymous module without dependencies
         define([], factory);
@@ -61,6 +61,7 @@
 		this.min = min;
 		this.remove = remove;
 		this.subtract = subtract;
+		this.sum = sum;
 
         //Return for chaining
         return this;
@@ -766,7 +767,7 @@
     }
     //#endregion
 	
-	//#region "intersect"
+	//#region "subtract"
 
     //Get only elements NOT contained on provided "otherData"
 	//using same instance or compare expression
@@ -835,8 +836,43 @@
         return new jslinq(outData);        
     }
     //#endregion
+	
+	//#region "sum"
+
+    //Sum values specified with expression
+    function sum(expression) {
+	
+        //Check arguments
+        if (!expression)
+            throw new Error("Expression is invalid");
+
+        //Select only the field(s) matching expression
+        var outData = jslinq(this.items)
+			.select(expression)
+			.toList();
+			
+		//Define value of sum
+		var sumValue = 0;
+
+        //For each element on outData
+        for (var i = 0; i < outData.length; i++) {
+			
+			//Extract current value
+			var currentValue = outData[i];
+
+            //If element is not a number
+			if (typeof currentValue != 'number')
+				throw Error("Value '" + currentValue + "' is not a number");
+
+            //Sum with total value
+            sumValue = sumValue + currentValue;
+        }
+
+        //Return sum
+        return sumValue;
+    }
+    //#endregion
   
 	//Exports functions
 	return jslinq;
-  
 }));

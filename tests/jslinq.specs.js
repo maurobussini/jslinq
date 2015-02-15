@@ -89,6 +89,16 @@ describe("jslinq", function () {
 			expect(result).toBeDefined();
 			expect(result).toEqual(1);
 		});
+		
+		//Added in v1.0.10
+		it("Should obtain 15 using 'sum'", function () {			
+			var result = jslinq(testData)
+				.sum(function(el){
+					return el.id;
+				});
+			expect(result).toBeDefined();
+			expect(result).toEqual(15);
+		});	
 	});
 	
 	//projections
@@ -287,6 +297,8 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(3);
-		});		
+		});	
+
+				
 	});
 });

@@ -1,4 +1,4 @@
-jslinq v1.0.8
+jslinq v1.0.10
 ======
 
 Another LINQ provider for Javascript
@@ -336,6 +336,19 @@ result => [
 	{ id: 1, name: "one", ... },
 	{ id: 3, name: "three", ... },
 	{ id: 5, name: "five", ... }
+];
+*/
+```
+
+#### Sum numeric values with *sum*
+```javascript
+			
+var result = queryObj
+	.sum(function(el){
+		return el.id;
+	});
+/*
+result => 15
 ];
 */
 ```

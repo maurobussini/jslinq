@@ -39,3 +39,7 @@ Thumbs.db
 # Node.js modules #
 ###################
 node_modules
+
+# WebStorm folders #
+####################
+.idea
