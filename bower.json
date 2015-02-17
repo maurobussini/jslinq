@@ -8,17 +8,21 @@
     "node"
   ],
   "keywords": [
-    "LINQ"
+    "linq", 
+	"json", 
+	"query", 
+	"array"
   ],
   "authors": [
-    "mauro.bussini"
+    "maurobussini"
   ],
   "license": "MIT",
   "homepage": "https://github.com/maurobussini/jslinq",
   "ignore": [
     "node_modules",
 	"src",
-    "tests", 
+    "test",
+    ".idea",
 	".gitignore",
 	"bower.json",
 	"Gruntfile.js",

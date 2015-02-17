@@ -1,16 +1,4 @@
-﻿﻿﻿/*
- * jslinq
- * Copyright 2014 Mauro Bussini.
- * All Rights Reserved.
- * Use, reproduction, distribution, and modification of this code is subject to the terms and
- * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
- *
- * Author 	: Mauro Bussini
- * Version	: v1.0.9
- * Project	: https://github.com/maurobussini/jslinq
- */
-
-(function (root, factory) {
+﻿(function (root, factory) {
 
     //UMD - Universal Module Definition
 	if (typeof define === 'function' && define.amd) {
@@ -100,9 +88,7 @@
 			
 			//If current is object, invoke "Equals" on each 
 			//member of the object; otherwise just check values
-			var isEqual = (typeof firstValue === 'object') 
-				? equals(firstValue, secondValue)
-				: firstValue == secondValue;
+			var isEqual = (typeof firstValue === 'object') ? equals(firstValue, secondValue) : firstValue == secondValue;
 			
 			//If not equals, exit
 			if (!isEqual)
@@ -317,10 +303,10 @@
 		}
 
         //Define output array
-        var outData = outData.sort(sortAction);
+        var sortedData = outData.sort(sortAction);
         
         //Return for chaining
-        return new jslinq(outData);
+        return new jslinq(sortedData);
     }
     //#endregion
 	
@@ -408,7 +394,7 @@
 		}
 	
         //If output list does not contains element, return null
-        if (outData.length == 0)
+        if (outData.length === 0)
             return null;
 
         //If contains just one element, returns element
@@ -443,7 +429,7 @@
 		}
 
         //If output list does not contains element, return null
-        if (outData.length == 0)
+        if (outData.length === 0)
             return null;
 			
 		//Return first element
@@ -474,7 +460,7 @@
 		}
 
         //If output list does not contains element, return null
-        if (outData.length == 0)
+        if (outData.length === 0)
             return null;
 			
 		//Return last element
@@ -572,10 +558,10 @@
 		}
 
 		//Slice source array
-		var outData = outData.slice(value);
+		var slicedData = outData.slice(value);
 			
 		//Return for chaining
-        return new jslinq(outData);
+        return new jslinq(slicedData);
     }
     //#endregion
 	
@@ -595,10 +581,10 @@
 		}
 
 		//Slice source array
-		var outData = outData.slice(0, value);
+		var slicedData = outData.slice(0, value);
 			
 		//Return for chaining
-        return new jslinq(outData);
+        return new jslinq(slicedData);
     }
     //#endregion
 	
@@ -625,7 +611,7 @@
 		}
 		
 		//If array has no elements, returns null
-		if (outData.length == 0){
+		if (outData.length === 0){
 			return null;
 		}
 		else{
@@ -664,7 +650,7 @@
 		}
 		
 		//If array has no elements, returns null
-		if (outData.length == 0){
+		if (outData.length === 0){
 			return null;
 		}
 		else{

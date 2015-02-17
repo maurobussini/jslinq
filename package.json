@@ -1,9 +1,15 @@
 {
   "name": "jslinq",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Another LINQ provider for Javascript",
   "main": "src/jslinq.js",
   "author": "maurobussini",
+  "keywords": [
+    "linq", 
+	"json", 
+	"query", 
+	"array"
+  ],
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
