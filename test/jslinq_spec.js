@@ -298,6 +298,30 @@ describe("jslinq", function () {
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(3);
 		});	
+		
+		//Added in v1.0.12
+		it("Should works also with nested 'jslinq' requests", function () {
+			var someOtherData = [
+				{ id: 2, name: "two", category: 'vegetables', countries: ["Italy", "Germany"] },
+				{ id: 4, name: "four", category: 'fruits', countries: ["Japan"] },
+				{ id: 7, name: "seven", category: 'fruit', countries: null }
+			];
+			var result = jslinq(testData)
+				.where(function(el){
+					
+					//Check if "Italy" is present on "countries"
+					var hasItaly = jslinq(el.countries)
+						.any(function(c){
+							return c == "Italy"
+						});
+					
+					//Returns value
+					return hasItaly;
+				})
+				.toList();	
+			expect(result).toBeDefined();
+			expect(result.length).toEqual(3);
+		});	
 
 				
 	});

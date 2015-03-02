@@ -1,4 +1,4 @@
-jslinq v1.0.11
+jslinq v1.0.12
 ======
 
 Another LINQ provider for Javascript
@@ -234,7 +234,8 @@ result => true;
 #### Skip the number of specified elements with *skip*
 ```javascript
 var result = queryObj
-	.skip(3);
+	.skip(3)
+	.toList();
 /*
 result => [
 	{ id: 4, name: "four", ... },
@@ -246,7 +247,8 @@ result => [
 #### Take the number of specified elements with *take*
 ```javascript
 var result = queryObj
-	.skip(2);
+	.take(2)
+	.toList();
 /*
 result => [
 	{ id: 1, name: "one", ... },
@@ -362,5 +364,28 @@ var result = queryObj
 	.toList();
 /*
 result => [1, 4, 5];
+*/
+```
+
+#### ...and use jslinq nested inside functions
+```javascript
+
+var result = queryObj
+	.where(function(el) { 
+	
+		//Check if element has at least one country equals to "Italy"
+		var hasItaly = jslinq(el.countries)
+			.any(function(c){
+				returc c == "Italy";
+			});
+		return hasItaly; 
+	})
+	.toList();
+/*
+result => [
+	{ id: 1, name: "one", ... , countries: ["Italy", "Austria"] },
+	{ id: 2, name: "two", ... , countries: ["Italy", "Germany"] },
+	{ id: 5, name: "five", ... , countries: ["Japan", "Italy"] }
+];
 */
 ```

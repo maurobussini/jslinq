@@ -119,7 +119,7 @@
 
             //If element match, append
             if (doesMatch)
-                outData.push(items[i]);
+                outData.push(this.items[i]);
         }
 
         //Return for chaining
@@ -858,7 +858,14 @@
         return sumValue;
     }
     //#endregion
+	
+	//Constructor instance
+	function constructor(arrayOfData){
+		
+		//Returns new instance of "jslinq"
+		return new jslinq(arrayOfData);
+	}
   
 	//Exports functions
-	return jslinq;
+	return constructor;
 }));
