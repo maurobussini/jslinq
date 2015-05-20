@@ -58,11 +58,7 @@
 	//Verify if first and second 
 	//element are equals in values
 	function equals(first, second){
-	
-		//Arguments validation
-		if (!first) throw new Error("Argument 'first' is invalid.");
-		if (!second) throw new Error("Argument 'second' is invalid.");
-		
+
 		//If are the same instance, true
 		if (first === second)
 			return true;
