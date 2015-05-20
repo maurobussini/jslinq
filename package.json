@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Another LINQ provider for Javascript",
   "main": "src/jslinq.js",
   "author": "maurobussini",

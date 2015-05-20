@@ -1,4 +1,4 @@
-jslinq v1.0.12
+jslinq v1.0.14
 ======
 
 Another LINQ provider for Javascript
@@ -351,6 +351,27 @@ var result = queryObj
 	});
 /*
 result => 15
+];
+*/
+```
+
+#### Calculate average on numeric values with *average*
+```javascript
+
+var sampleData = [
+	{ value: 3 },
+	{ value: 2 },
+	{ value: 5 },
+	{ value: 2 },
+];
+
+var result = jslinq(sampleData)
+	.average(function(x) { 
+		return x.value; 
+	});
+			
+/*
+result => 3
 ];
 */
 ```

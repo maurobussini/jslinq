@@ -50,6 +50,7 @@
 		this.remove = remove;
 		this.subtract = subtract;
 		this.sum = sum;
+        this.average = average;
 
         //Return for chaining
         return this;
@@ -852,6 +853,58 @@
 
         //Return sum
         return sumValue;
+    }
+    //#endregion
+
+    //#region "average"
+
+    //Get the min element matching criteria the number of specified elements
+    function average(expression) {
+
+        //Define output
+        var outData;
+
+        //If there's no expression
+        if (!expression){
+
+            //Just assign current items
+            outData = this.items;
+        }
+        else{
+
+            //Otherwise apply select condition
+            outData = jslinq(this.items)
+                .select(expression)
+                .toList();
+        }
+
+        //If array has no elements, returns null
+        if (outData.length === 0){
+            return null;
+        }
+        else{
+
+            //Sum every value
+            var valuesSum = 0;
+
+            //Iterate all elements on list
+            for (var i = 0; i < outData.length; i++){
+
+                //If element is not number, throw
+                if (isNaN(outData[i]))
+                    throw new Error("Element '" + outData[i] +
+                        "' (index:" + i + ") is not a number");
+
+                //Increment sum
+                valuesSum = outData[i] + valuesSum;
+            }
+
+            //Calculate average
+            var outAverage = valuesSum / outData.length
+
+            //Returns first element
+            return outAverage;
+        }
     }
     //#endregion
 	

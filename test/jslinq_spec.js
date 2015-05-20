@@ -74,31 +74,7 @@ describe("jslinq", function () {
 			var result = jslinq(testData)
 				.any(function(x) { return x.countries.length > 0; });	
 			expect(result).toEqual(true);
-		});
-		
-		it("Should have 5 with 'max'", function () {
-			var result = jslinq(testData)
-				.max(function(x) { return x.id; });
-			expect(result).toBeDefined();
-			expect(result).toEqual(5);
-		});
-		
-		it("Should have 1 with 'min'", function () {
-			var result = jslinq(testData)
-				.min(function(x) { return x.id; });
-			expect(result).toBeDefined();
-			expect(result).toEqual(1);
-		});
-		
-		//Added in v1.0.10
-		it("Should obtain 15 using 'sum'", function () {			
-			var result = jslinq(testData)
-				.sum(function(el){
-					return el.id;
-				});
-			expect(result).toBeDefined();
-			expect(result).toEqual(15);
-		});	
+		});			
 	});
 	
 	//projections
@@ -321,8 +297,52 @@ describe("jslinq", function () {
 				.toList();	
 			expect(result).toBeDefined();
 			expect(result.length).toEqual(3);
-		});	
-
-				
+		});					
 	});
+	
+	//calculate
+	describe("calculate", function (params) {
+		
+		it("Should have 5 with 'max'", function () {
+			var result = jslinq(testData)
+				.max(function(x) { return x.id; });
+			expect(result).toBeDefined();
+			expect(result).toEqual(5);
+		});
+		
+		it("Should have 1 with 'min'", function () {
+			var result = jslinq(testData)
+				.min(function(x) { return x.id; });
+			expect(result).toBeDefined();
+			expect(result).toEqual(1);
+		});
+		
+		//Added in v1.0.10
+		it("Should obtain 15 using 'sum'", function () {			
+			var result = jslinq(testData)
+				.sum(function(el){
+					return el.id;
+				});
+			expect(result).toBeDefined();
+			expect(result).toEqual(15);
+		});
+
+		//Added in v1.0.14
+		it("Should have 4 with 'average'", function () {
+
+			var sampleData = [
+				{ value: 3 },
+				{ value: 2 },
+				{ value: 5 },
+				{ value: 2 },
+			];
+
+			var result = jslinq(sampleData)
+				.average(function(x) { return x.value; });
+			expect(result).toBeDefined();
+			expect(result).toEqual(3);
+		});
+		
+	})
+	
 });
