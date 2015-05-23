@@ -1,4 +1,4 @@
-jslinq v1.0.14
+jslinq
 ======
 
 Another LINQ provider for Javascript
