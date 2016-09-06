@@ -3,6 +3,18 @@ jslinq
 
 Another LINQ provider for Javascript
 
+## Install NPM
+
+```javascript
+npm install jslinq --save
+```
+
+## Install Bower
+
+```javascript
+bower install zenprogramming.jslinq --save
+```
+
 ## Usage
 
 #### Given the following source array:

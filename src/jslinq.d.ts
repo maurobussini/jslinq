@@ -31,9 +31,6 @@ declare namespace jslinq {
         //OrderByDescending
         orderByDescending?: (sortField: (el) => any) => JsLinq;
 
-        //OrderByDescending
-        orderByDescending?: (sortField: (el) => any) => JsLinq;
-
         //SelectMany
         selectMany?: (projection: (el) => any[]) => JsLinq;
 
@@ -47,10 +44,10 @@ declare namespace jslinq {
         lastOrDefault?: (condition?: (el: any) => boolean) => JsLinq;
 
         //Any
-        any?: (condition?: (el: any) => boolean) => JsLinq;
+        any?: (condition?: (el: any) => boolean) => boolean;
 
         //All
-        all?: (condition?: (el: any) => boolean) => JsLinq;
+        all?: (condition?: (el: any) => boolean) => boolean;
 
         //Count
         count?: () => number;
