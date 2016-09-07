@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Another LINQ provider for Javascript",
   "main": "build/jslinq.min.js",
   "moduleType": [
