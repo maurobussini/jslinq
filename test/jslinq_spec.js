@@ -301,7 +301,7 @@ describe("jslinq", function () {
 	});
 	
 	//calculate
-	describe("calculate", function (params) {
+	describe("calculate", function () {
 		
 		it("Should have 5 with 'max'", function () {
 			var result = jslinq(testData)

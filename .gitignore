@@ -43,3 +43,7 @@ node_modules
 # WebStorm folders #
 ####################
 .idea
+
+# Visual Studio Code folders #
+##############################
+.vscode

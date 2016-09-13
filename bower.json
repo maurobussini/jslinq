@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Another LINQ provider for Javascript",
   "main": "build/jslinq.min.js",
   "moduleType": [
@@ -8,10 +8,10 @@
     "node"
   ],
   "keywords": [
-    "linq", 
-	"json", 
-	"query", 
-	"array"
+    "linq",
+    "json",
+    "query",
+    "array"
   ],
   "authors": [
     "maurobussini"
@@ -19,15 +19,19 @@
   "license": "MIT",
   "homepage": "https://github.com/maurobussini/jslinq",
   "ignore": [
+    ".vscode",
     "node_modules",
-	"src",
+    "src",
     "test",
-    ".idea",
-	".gitignore",
-	"bower.json",
-	"Gruntfile.js",
-	"LICENSE",
-	"package.json",
-	"README.md"
-  ]
+    ".gitignore",
+    "bower.json",
+    "gulpfile.js",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maurobussini/jslinq.git"
+  }
 }
