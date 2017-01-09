@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Another LINQ provider for Javascript",
   "main": "build/jslinq.min.js",
   "moduleType": [
@@ -11,7 +11,9 @@
     "linq",
     "json",
     "query",
-    "array"
+    "array",
+    "ng2",
+    "angular2"
   ],
   "authors": [
     "maurobussini"
