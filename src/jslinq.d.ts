@@ -8,10 +8,10 @@ declare namespace jslinq {
         where?: (condition: (el: T) => boolean) => JsLinq<T>;
 
         //Select
-        select: (projection: (el: T) => T) => JsLinq<T>;
+        select: (projection: (el: T) => any) => JsLinq<T>;
 
         //GroupBy
-        groupBy?: (group: (el: T) => T) => JsLinqGroup<T>;
+        groupBy?: (group: (el: T) => any) => JsLinqGroup<T>;
 
         //Join
         join?: (otherData: T[]) => JsLinq<T>;
@@ -26,10 +26,10 @@ declare namespace jslinq {
         distinct?: () => JsLinq<T>;
 
         //OrderBy
-        orderBy?: (sortField: (el : T) => T) => JsLinq<T>;
+        orderBy?: (sortField: (el : T) => any) => JsLinq<T>;
 
         //OrderByDescending
-        orderByDescending?: (sortField: (el: T) => T) => JsLinq<T>;
+        orderByDescending?: (sortField: (el: T) => any) => JsLinq<T>;
 
         //SelectMany
         selectMany?: <Q>(projection: (el: T) => Q[]) => JsLinq<Q>;
@@ -59,10 +59,10 @@ declare namespace jslinq {
         take?: (quantity: number) => JsLinq<T>;
 
         //Max
-        max?: (projection?: (el: T) => T) => T;
+        max?: (projection?: (el: T) => any) => T;
 
         //Min
-        min?: (projection?: (el: T) => T) => T;
+        min?: (projection?: (el: T) => any) => T;
 
         //Remove
         remove?: (element: T) => JsLinq<T>;
