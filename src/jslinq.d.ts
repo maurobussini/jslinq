@@ -20,7 +20,7 @@ declare namespace jslinq {
         toList?: () => T[];
 
         //Intersect
-        intersect?: (otherData: T[], comparisonField?: (el) => T) => JsLinq<T>;
+        intersect?: (otherData: T[], comparisonField?: (el: T) => T) => JsLinq<T>;
 
         //Distinct
         distinct?: () => JsLinq<T>;
