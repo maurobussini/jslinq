@@ -1,6 +1,6 @@
 {
   "name": "jslinq",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Another LINQ provider for Javascript",
   "main": "src/jslinq.js",
   "author": "maurobussini",
@@ -8,16 +8,16 @@
     "type": "git",
     "url": "https://github.com/maurobussini/jslinq.git"
   },
-  "scripts": { 
-    "test": "karma start karma.conf.js", 
+  "scripts": {
+    "test": "karma start karma.conf.js",
     "build": "gulp build"
   },
   "keywords": [
     "linq",
     "json",
     "query",
-    "array", 
-    "ng2", 
+    "array",
+    "ng2",
     "angular2"
   ],
   "license": "MIT",
