@@ -17,12 +17,12 @@
     "json",
     "query",
     "array",
-    "ng2",
-    "angular2"
+    "ng",
+    "angular"
   ],
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-config-sync": "^1.0.2",
     "gulp-header": "^1.8.8",
     "gulp-rename": "^1.2.2",
@@ -33,6 +33,5 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2"
-  },
-  "dependencies": {}
+  }
 }

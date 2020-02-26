@@ -4,7 +4,7 @@ var rename = require('gulp-rename');
 var header = require('gulp-header');
 var sync = require('gulp-config-sync');
 
-gulp.task('header', function () {
+gulp.task('header', function (done) {
 
     var today = new Date().toLocaleDateString();
 
@@ -27,19 +27,21 @@ gulp.task('header', function () {
     .pipe(gulp.dest('./build'))
     .on('end', function(){ 
         console.log("Gulp 'header' task completed!"); 
+        done();
     });
 });
 
 //Sync bower with package 
-gulp.task('sync', function() {
+gulp.task('sync', function(done) {
   gulp.src(['bower.json'])
     .pipe(sync())
     .pipe(gulp.dest('.'))
     .on('end', function(){ 
         console.log("Gulp 'sync' task completed!"); 
+        done();
     });
 });
 
-gulp.task('build', ['sync', 'header'], function(){
+gulp.task('build', gulp.series('sync', 'header'), function(){
     console.log("Gulp 'build' task completed!");
 });
