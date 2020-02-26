@@ -14,6 +14,8 @@ npm install jslinq --save
 ```javascript
 bower install zenprogramming.jslinq --save
 ```
+| WARNING: jslinq on Bower is no longer maintained and ended at version 1.0.19 |
+| --- |
 
 ## Usage
 
