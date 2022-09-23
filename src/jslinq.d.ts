@@ -1,9 +1,9 @@
-declare function jslinq<T>(data: T[]) : jslinq.JsLinq<T>; 
+declare function jslinq<T>(data: T[]): jslinq.JsLinq<T>;
 
 declare namespace jslinq {
 
     interface JsLinq<T> {
-        
+
         //Where
         where?: (condition: (el: T) => boolean) => JsLinq<T>;
 
@@ -11,7 +11,7 @@ declare namespace jslinq {
         select: (projection: (el: T) => any) => JsLinq<T>;
 
         //GroupBy
-        groupBy?: (group: (el: T) => any) => JsLinqGroup<T>;
+        groupBy?: (group: (el: T) => any) => JsLinq<JsLinqGroup<T>>;
 
         //Join
         join?: (otherData: T[]) => JsLinq<T>;
@@ -26,7 +26,7 @@ declare namespace jslinq {
         distinct?: () => JsLinq<T>;
 
         //OrderBy
-        orderBy?: (sortField: (el : T) => any) => JsLinq<T>;
+        orderBy?: (sortField: (el: T) => any) => JsLinq<T>;
 
         //OrderByDescending
         orderByDescending?: (sortField: (el: T) => any) => JsLinq<T>;
@@ -68,19 +68,19 @@ declare namespace jslinq {
         remove?: (element: T) => JsLinq<T>;
 
         //Subtract
-        subtract?: (otherData: T[], comparisonField?: (el : T) => T) => JsLinq<T>;
+        subtract?: (otherData: T[], comparisonField?: (el: T) => T) => JsLinq<T>;
 
         //Sum
         sum?: (projection?: (el: T) => number) => number;
 
         //Average
-        average?: (projection?: (el : T) => number) => number;            
+        average?: (projection?: (el: T) => number) => number;
     }
 
     interface JsLinqGroup<T> {
 
         key: any;
-        count: number; 
+        count: number;
         elements: T[];
     }
 }
